@@ -1,10 +1,13 @@
 grafana:
   enabled: true
-  adminPassword: "admin"
+  admin:
+    existingSecret: "grafana-admin-credentials"
+    passwordKey: "admin-password"
+    userKey: "admin-user"
   
   ingress:
     enabled: true
-    ingressClassName: "nginx"     
+    ingressClassName: "nginx"
     hosts:
       - grafana.mgeniusworld.local
     path: /
@@ -12,12 +15,18 @@ grafana:
 
   persistence:
     enabled: true
-    storageClassName: "local-path" # Standard bei K3s
+    storageClassName: "local-path"
     size: 2Gi
 
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      searchNamespace: ALL
+  
   initChownData:
     enabled: false
- 
+
 prometheus:
   enabled: true
   ingress:
@@ -29,7 +38,7 @@ prometheus:
     pathType: ImplementationSpecific
     
   prometheusSpec:
-    retention: 5d # Spart Platz auf der SD-Karte
+    retention: 5d
     storageSpec:
       volumeClaimTemplate:
         spec:
