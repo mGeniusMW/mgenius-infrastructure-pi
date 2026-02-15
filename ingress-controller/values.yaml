@@ -1,0 +1,14 @@
+controller:
+  hostNetwork: true
+  
+  kind: DaemonSet
+  
+  service:
+    type: ClusterIP
+
+  watchIngressWithoutClass: true
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 90Mi

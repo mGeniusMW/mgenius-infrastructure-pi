@@ -1,0 +1,45 @@
+grafana:
+  enabled: true
+  adminPassword: "admin"
+  
+  ingress:
+    enabled: true
+    ingressClassName: "nginx"     
+    hosts:
+      - grafana.mgeniusworld.local
+    path: /
+    pathType: ImplementationSpecific
+
+  persistence:
+    enabled: true
+    storageClassName: "local-path" # Standard bei K3s
+    size: 2Gi
+
+  initChownData:
+    enabled: false
+ 
+prometheus:
+  enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: "nginx"
+    hosts:
+      - prometheus.mgeniusworld.local
+    path: /
+    pathType: ImplementationSpecific
+    
+  prometheusSpec:
+    retention: 5d # Spart Platz auf der SD-Karte
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 2Gi 
+
+alertmanager:
+  enabled: false 
+
+nodeExporter:
+  enabled: true
