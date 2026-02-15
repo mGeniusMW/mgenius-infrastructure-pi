@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: npm-service
+  namespace: networking
+spec:
+  type: LoadBalancer  # K3s will give this the Pi's IP
+  selector:
+    app: npm          # MUST match your deployment label
+  ports:
+    - name: admin
+      port: 81
+      targetPort: 81
+    - name: http
+      port: 80
+      targetPort: 80
