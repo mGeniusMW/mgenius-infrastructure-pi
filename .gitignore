@@ -1,7 +1,6 @@
-# Lokale Hilfsdateien
 *.pem
 *.txt
 temp-secret.yaml
 
-# Falls du Backups von Kubernetes-Manifesten hast
+main-sealed-secret-master-key.yaml
 secret-tmp.yaml
